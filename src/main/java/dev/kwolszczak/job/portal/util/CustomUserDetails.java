@@ -13,8 +13,8 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    @Autowired
-    private final User user;
+
+    private  User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -25,6 +25,7 @@ public class CustomUserDetails implements UserDetails {
         UserType userType = user.getUserType();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(userType.getUserTypeName()));
+        System.out.println("--------------- Authorities --------------"+userType.getUserTypeName());
         return authorities;
     }
 
