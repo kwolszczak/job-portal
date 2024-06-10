@@ -1,115 +1,128 @@
 package dev.kwolszczak.job.portal.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "recruiter_profile")
 public class RecruiterProfile {
 
-    @Id
-    private int userAccountId;
+  @Id
+  private int userAccountId;
 
-    @OneToOne
-    @JoinColumn(name = "user_account_id")
-    @MapsId
-    private  User user;
+  @OneToOne
+  @JoinColumn(name = "user_account_id")
+  @MapsId
+  private User user;
 
-    private String city;
-    private String company;
-    private String country;
-    private String firstName;
-    private String lastName;
-    private String profilePhoto;
-    private String state;
+  private String city;
+  private String company;
+  private String country;
+  private String firstName;
+  private String lastName;
+  private String profilePhoto;
+  private String state;
 
-    public RecruiterProfile() {
+  public RecruiterProfile() {
+  }
+
+  public RecruiterProfile(int userAccountId, User user, String city, String company, String country, String firstName, String lastName, String profilePhoto,
+      String state) {
+    this.userAccountId = userAccountId;
+    this.user = user;
+    this.city = city;
+    this.company = company;
+    this.country = country;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.profilePhoto = profilePhoto;
+    this.state = state;
+  }
+
+  public RecruiterProfile(User user) {
+    this.user = user;
+  }
+
+  public String getPhotosImagePath() {
+    if (profilePhoto == null) {
+      return null;
     }
+    return "/photos/recruiter/" + userAccountId + "/" + profilePhoto;
+  }
 
-    public RecruiterProfile(int userAccountId, User user, String city, String company, String country, String firstName, String lastName, String profilePhoto, String state) {
-        this.userAccountId = userAccountId;
-        this.user = user;
-        this.city = city;
-        this.company = company;
-        this.country = country;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.profilePhoto = profilePhoto;
-        this.state = state;
-    }
+  public int getUserAccountId() {
+    return userAccountId;
+  }
 
-    public RecruiterProfile(User user) {
-        this.user=user;
-    }
+  public void setUserAccountId(int userAccountId) {
+    this.userAccountId = userAccountId;
+  }
 
-    public int getUserAccountId() {
-        return userAccountId;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public void setUserAccountId(int userAccountId) {
-        this.userAccountId = userAccountId;
-    }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-    public User getUser() {
-        return user;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public String getCompany() {
+    return company;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public void setCompany(String company) {
+    this.company = company;
+  }
 
-    public String getCompany() {
-        return company;
-    }
+  public String getCountry() {
+    return country;
+  }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-    public String getCountry() {
-        return country;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public String getProfilePhoto() {
+    return profilePhoto;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setProfilePhoto(String profilePhoto) {
+    this.profilePhoto = profilePhoto;
+  }
 
-    public String getProfilePhoto() {
-        return profilePhoto;
-    }
+  public String getState() {
+    return state;
+  }
 
-    public void setProfilePhoto(String profilePhoto) {
-        this.profilePhoto = profilePhoto;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
+  public void setState(String state) {
+    this.state = state;
+  }
 }
