@@ -37,4 +37,6 @@ public class JobPostActivityService {
     return recruiterJobsDtos;
   }
 
+  public JobPostActivity getOne(int id) {
+    return jobPostActivityRepository.findById(id).orElseThrow(()-> new RuntimeException("Job not found") );  }
 }
