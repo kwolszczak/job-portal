@@ -1,11 +1,16 @@
 package dev.kwolszczak.job.portal.controller;
 
 import dev.kwolszczak.job.portal.entity.JobPostActivity;
+import dev.kwolszczak.job.portal.entity.RecruiterJobsDto;
+import dev.kwolszczak.job.portal.entity.RecruiterProfile;
 import dev.kwolszczak.job.portal.entity.User;
+import dev.kwolszczak.job.portal.services.JobPostActivityService;
 import dev.kwolszczak.job.portal.services.UserService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +23,12 @@ import java.util.Date;
 public class JobPostActivityController {
 
   private final UserService userService;
+  private final JobPostActivityService jobPostActivityService;
 
   @Autowired
-  public JobPostActivityController(UserService userService) {
+  public JobPostActivityController(UserService userService, JobPostActivityService jobPostActivityService) {
     this.userService = userService;
+    this.jobPostActivityService = jobPostActivityService;
   }
 
   @GetMapping("/dashboard/")
@@ -32,6 +39,10 @@ public class JobPostActivityController {
     if (!(authentication instanceof AnonymousAuthenticationToken)) {
       String currentUsername = authentication.getName();
       model.addAttribute("username", currentUsername);
+      if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Recruiter"))) {
+        List<RecruiterJobsDto> recruiterJobs = jobPostActivityService.getRecruiterJobs(((RecruiterProfile) currentUserProfile).getUserAccountId());
+        model.addAttribute("jobPost", recruiterJobs);
+      }
     }
     model.addAttribute("user", currentUserProfile);
     return "dashboard";
@@ -52,6 +63,7 @@ public class JobPostActivityController {
     }
     jobPostActivity.setPostedDate(new Date());
     model.addAttribute("jobPostActivity", jobPostActivity);
+    JobPostActivity saved = jobPostActivityService.addNew(jobPostActivity);
 
     return "redirect:/dashboard/";
   }

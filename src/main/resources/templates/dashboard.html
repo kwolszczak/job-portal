@@ -26,13 +26,13 @@
     ></label
     >
     <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
     >
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -73,11 +73,11 @@
         </ul>
 
         <img
-            class="rounded-circle me-3"
-            height="50px"
-            width="50x"
-            th:if="${user.photosImagePath!=null}"
-            th:src="@{${user?.photosImagePath}}"
+                class="rounded-circle me-3"
+                height="50px"
+                width="50x"
+                th:if="${user.photosImagePath!=null}"
+                th:src="@{${user?.photosImagePath}}"
         />
 
         <label th:if="${user.firstName != null && user.lastName != null}"
@@ -103,46 +103,46 @@
             <label class="large-label px-3 mb-3" sec:authorize="hasAuthority('Job Seeker')">Search Results</label>
             <th:block th:each="jobPost:${jobPost}">
                 <a
-                    th:href="@{/job-details-apply/{id}(id=${jobPost.jobPostId})}"
-                    style="text-decoration: none; color: black"
+                        th:href="@{/job-details-apply/{id}(id=${jobPost.jobPostId})}"
+                        style="text-decoration: none; color: black"
                 >
                     <div
-                        onclick="window.location=/job-details-apply/{id}(id=${jobPost.jobPostId})"
-                        class="job-row"
+                            onclick="window.location=/job-details-apply/{id}(id=${jobPost.jobPostId})"
+                            class="job-row"
                     >
                         <div class="row">
                             <div class="col-md-4">
                                 <label class="job-title text-left">
                                     [[${jobPost.jobTitle}]]
                                     <span
-                                        class="title-span"
-                                        sec:authorize="hasAuthority('Recruiter')"
-                                        th:text="'('+ @{${jobPost.totalCandidates}}+' Candidates Applied)'"
+                                            class="title-span"
+                                            sec:authorize="hasAuthority('Recruiter')"
+                                            th:text="'('+ @{${jobPost.totalCandidates}}+' Candidates Applied)'"
                                     >(xx candidates applied)</span
                                     >
                                     <span
-                                        class="title-span"
-                                        sec:authorize="hasAuthority('Job Seeker')"
-                                        th:if="${jobPost.isActive == true}"
+                                            class="title-span"
+                                            sec:authorize="hasAuthority('Job Seeker')"
+                                            th:if="${jobPost.isActive == true}"
                                     >(Applied)</span
                                     >
                                     <span
-                                        class="title-span"
-                                        sec:authorize="hasAuthority('Job Seeker')"
-                                        th:if="${jobPost.isSaved == true}"
+                                            class="title-span"
+                                            sec:authorize="hasAuthority('Job Seeker')"
+                                            th:if="${jobPost.isSaved == true}"
                                     >(Saved)</span
                                     >
                                 </label>
                             </div>
                             <div class="col-md-4 text-center">
                                 <label
-                                    th:text="${jobPost.jobLocationId.city+', '+ jobPost.jobLocationId.state}"
+                                        th:text="${jobPost.jobLocation.city+', '+ jobPost.jobLocation.state}"
                                 >
                                     City State</label
                                 >
                             </div>
                             <div class="col-md-4 text-right">
-                                <label th:text="@{${jobPost.jobCompanyId.name}}"
+                                <label th:text="@{${jobPost.jobCompany.name}}"
                                 >Recruiter Company Name</label
                                 >
                             </div>
@@ -155,12 +155,12 @@
 </section>
 
 <script
-    type="text/javascript"
-    th:src="@{/webjars/jquery/jquery.min.js}"
+        type="text/javascript"
+        th:src="@{/webjars/jquery/jquery.min.js}"
 ></script>
 <script
-    type="text/javascript"
-    th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"
+        type="text/javascript"
+        th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"
 ></script>
 </body>
 </html>
