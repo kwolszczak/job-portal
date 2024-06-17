@@ -9,30 +9,32 @@ import java.util.List;
 public class JobSeekerProfile {
 
     @Id
-    private int userAccountId;
+    private Integer userAccountId;
 
     @OneToOne
     @JoinColumn(name = "user_account_id")
     @MapsId
     private  User user;
 
-    @OneToMany(mappedBy = "jobSeekerProfile")
+    @OneToMany(targetEntity = Skill.class, cascade = CascadeType.ALL,mappedBy = "jobSeekerProfile")
     List<Skill> skills;
 
+    private String firstName;
+    private String lastName;
     private String city;
     private String state;
     private String country;
-    private String firstName;
-    private String lastName;
     private String workAuthorization;
     private String employmentType;
     private String resume;
+
+    @Column(nullable = true, length = 64)
     private String profilePhoto;
 
     public JobSeekerProfile() {
     }
 
-    public JobSeekerProfile(int userAccountId, User user, List<Skill> skills, String city, String state, String country, String firstName, String lastName, String workAuthorization, String employmentType, String resume, String profilePhoto) {
+    public JobSeekerProfile(Integer userAccountId, User user, List<Skill> skills, String city, String state, String country, String firstName, String lastName, String workAuthorization, String employmentType, String resume, String profilePhoto) {
         this.userAccountId = userAccountId;
         this.user = user;
         this.skills = skills;
@@ -51,11 +53,17 @@ public class JobSeekerProfile {
         this.user = user;
     }
 
-    public int getUserAccountId() {
+    @Transient
+    public String getPhotosImagePath() {
+        if (profilePhoto == null || userAccountId == null) return null;
+        return "/photos/candidate/" + userAccountId + "/" + profilePhoto;
+    }
+
+    public Integer getUserAccountId() {
         return userAccountId;
     }
 
-    public void setUserAccountId(int userAccountId) {
+    public void setUserAccountId(Integer userAccountId) {
         this.userAccountId = userAccountId;
     }
 
