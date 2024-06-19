@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class JobPostActivityController {
+  //test connection
 
   private final UserService userService;
   private final JobPostActivityService jobPostActivityService;
